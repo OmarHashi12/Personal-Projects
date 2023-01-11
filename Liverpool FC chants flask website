@@ -1,0 +1,33 @@
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route("/liverpool-chants")
+def home():
+    return "<h1 style = 'color : red'>WELCOME REDS! LEARN THE CHANTS THAT MAKE ANFIELD EXPLODE! </h1>"\
+           "<h2 style = 'color : black'><a href ='https://www.youtube.com/watch?v=weec_jzudc8'>  1.) You'll Never Walk Alone</a> </h2>"\
+           "<p style = 'color : black'> When you walk through a storm </p>"\
+           "<p style = 'color : black'> Hold your head up high </p>"\
+           "<p style = 'color : black'> And don't be afraid of the dark </p>"\
+           "<p style = 'color : black'> At the end of a storm </p>"\
+           "<p style = 'color : black'> There's a golden sky </p>"\
+           "<p style = 'color : black'> And the sweet silver song of a lark </p>"\
+           "<p style = 'color : black'> Walk on through the wind </p>"\
+           "<p style = 'color : black'> Walk on through the rain </p>"\
+           "<p style = 'color : black'> For your dreams be tossed and blown </p>"\
+           "<p style = 'color : black'> Walk on, walk on </p>"\
+           "<p style = 'color : black'> With hope in your heart </p>"\
+           "<p style = 'color : black'> And you'll never walk alone</p>"\
+           "<p style = 'color : black'> You'll never walk alone </p>"\
+           "<p style = 'color : black'> Walk on, walk on </p>"\
+           "<p style = 'color : black'> With hope in your heart </p>"\
+           "<p style = 'color : black'> And you'll never walk alone </p>"\
+           "<p style = 'color : black'> You'll never walk alone </p>"\
+           "<h2 style = 'color : black'><a href = 'https://www.youtube.com/watch?v=angfhBLxcvw'> 2.) Mohamed Salah </a></h2>"\
+           "<p style = 'color : black'> Salahhhh la la la, the Egyptian King </p>"\
+           "<p style = 'color : black'> MO SALAH! MO SALAH! MO SALAH! </p>"\
+           "<p style = 'color : black'> Running Down the wing! </p>"
+
+
+if __name__ == "__main__":
+    app.run()

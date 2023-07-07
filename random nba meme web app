@@ -1,0 +1,71 @@
+import requests
+from flask import Flask, render_template_string
+
+app = Flask(__name__)
+
+
+def get_meme():
+    url = "https://www.reddit.com/r/Nbamemes/random.json"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36"
+    }
+    response = requests.get(url, headers=headers)
+    json_data = response.json()
+    meme_data = json_data[0]["data"]["children"][0]["data"]
+    meme_title = meme_data["title"]
+    meme_url = meme_data["url"]
+    return meme_title, meme_url
+
+
+@app.route("/")
+def home():
+    meme_title, meme_url = get_meme()
+    is_video = meme_url.endswith(('.mp4', '.webm', '.ogg'))
+    return render_template_string('''
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Random Meme</title>
+            <style>
+                body {
+                    background-color: black;
+                    color: white;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    margin: 0;
+                    padding: 0;
+                    font-family: Arial, sans-serif;
+                }
+        
+                h1 {
+                    font-size: 30px;
+                    margin-bottom: 20px;
+                    text-align: center;
+                }
+        
+                video {
+                    max-width: 100%;
+                    height: auto;
+                    display: block;
+                    margin: 0 auto;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>{{ meme_title }}</h1>
+            {% if is_video %}
+                <video controls>
+                    <source src="{{ meme_url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            {% else %}
+                <img src="{{ meme_url }}" alt="Meme">
+            {% endif %}
+        </body>
+        </html>
+    ''', meme_title=meme_title, meme_url=meme_url, is_video=is_video)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=80)
